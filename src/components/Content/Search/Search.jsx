@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import _ from "lodash";
 import Autosuggest from "react-autosuggest";
 import { BASE_API_URL } from "../../../constants";
 import {
@@ -25,12 +24,10 @@ const renderSuggestion = (suggestion) => (
 
 export const Search = ({ onShowSelected }) => {
   const [inputValue, setInputValue] = useState("");
-  const [loading, setLoading] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
   const [shows, setShows] = useState([]);
 
   async function callGetShowsApi(query) {
-    setLoading(true);
     const result = await axios(`${BASE_API_URL}search/shows?q=${query}`);
     if (result.data) {
       console.log(result.data);
@@ -38,7 +35,6 @@ export const Search = ({ onShowSelected }) => {
     } else {
       setIsInvalid(true);
     }
-    setLoading(false);
   }
 
   const handleSuggestionsFetch = ({ value, reason }) => {
